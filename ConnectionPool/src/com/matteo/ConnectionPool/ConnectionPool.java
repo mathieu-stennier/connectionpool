@@ -2,7 +2,6 @@ package com.matteo.ConnectionPool;
 
 import com.matteo.ConnectionPool.ConnectionNotAvailableException;
 import com.matteo.ConnectionPool.PooledConnection;
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,8 +22,8 @@ implements Runnable {
 
     public ConnectionPool(String dbDriver, String db, String user, String password, int max, int init) throws ClassNotFoundException, SQLException, IllegalArgumentException {
         Class.forName(dbDriver);
-        this.availableConnection = new LinkedBlockingQueue(max);
-        this.beingUsedConnection = new LinkedBlockingQueue(max);
+        this.availableConnection = new LinkedBlockingQueue<PooledConnection>(max);
+        this.beingUsedConnection = new LinkedBlockingQueue<PooledConnection>(max);
         this.maxNbConnections = max;
         this.initNbConnections = init;
         this.dbUrl = "jdbc:mysql://localhost:8889/" + db;
